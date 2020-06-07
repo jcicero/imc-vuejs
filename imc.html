@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculo de IMC com vuejs</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+        <h2>   {{message}} </h2>
+        <div class="row">
+        <div class="input-field col s6">
+            <input id="peso" v-model="imc.peso" type="number" class="validate">
+            <label for="peso">Peso</label>
+        </div>
+        <div class="input-field col s6">
+            <input id="altura" v-model="imc.altura" type="number" class="validate">
+            <label for="altura">Altura</label>
+        </div>
+        <div class="input-field col s12">
+        <button class="btn waves-effect waves-light" value="Calcular" v-on:click="calcular(imc)">
+            <i class="medium material-icons">poll</i> Calcular
+        </button>
+        </div>
+        </div>
+        <p class="flow-text" v-if="imc.peso > 0"> Peso: {{ imc.peso }} </p>
+        <p class="flow-text" v-if="imc.altura > 0"> Altura: {{ imc.altura }} </p>
+        <p class="flow-text" v-if="imc.calculo > 0"> IMC: {{ imc.calculo + ' - ' + imc.desc }} </p>
+    </div>
+</div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Calcular IMC',
+                imc:{
+                    peso:'',
+                    altura:'',
+                    calculo:'00',
+                    desc:''
+                }
+            },
+            methods:{
+                calcular: function(imc){
+                    let calculo = imc.peso / (imc.altura * imc.altura)
+                    imc.calculo = calculo.toFixed(1)
+
+                    if (calculo < 17) {
+                        imc.desc = "Muito abaixo do peso";
+                        }
+                        if (calculo >= 17 && calculo <= 18.49) {
+                        imc.desc = "Abaixo do peso";
+                        }
+                        if (calculo >= 18.5 && calculo <= 24.99) {
+                        imc.desc = "Peso normal";
+                        }
+                        if (calculo >= 25 && calculo <= 29.99) {
+                        imc.desc = "Acima do peso";
+                        }
+                        if (calculo >= 30 && calculo <= 34.99) {
+                        imc.desc = "Obesidade I";
+                        }
+                        if (calculo >= 35 && calculo <= 39.99) {
+                        imc.desc = "Obesidade II";
+                        }
+                        if (calculo >= 40) {
+                        imc.desc = "Obesidade III";
+                        }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
