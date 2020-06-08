@@ -15,11 +15,11 @@
         <h2>   {{message}} </h2>
         <div class="row">
         <div class="input-field col s6">
-            <input id="peso" v-model="imc.peso" type="number" class="validate">
+            <input id="peso" v-model="imc.peso" type="number" min="0" class="validate">
             <label for="peso">Peso</label>
         </div>
         <div class="input-field col s6">
-            <input id="altura" v-model="imc.altura" type="number" class="validate">
+            <input id="altura" v-model="imc.altura" type="number" min="0" class="validate">
             <label for="altura">Altura</label>
         </div>
         <div class="input-field col s12">
